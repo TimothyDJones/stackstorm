@@ -1,0 +1,16 @@
+name: hello_world_action
+description: "Simple Stackstorm action to demonstrate how to build them."
+runner_type: "python-script"
+enabled: true
+entry_point: hello_world_action.py
+parameters:
+    name:
+        type: string
+        description: "Name of person to greet."
+        required: true
+        default: "World"
+    message:
+        type: string
+        description: "Text message to display."
+        required: false
+

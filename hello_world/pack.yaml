@@ -1,0 +1,14 @@
+ref: hello_world
+name: hello_world
+description: "Simple pack to demonstrate creation of Stackstorm packs."
+keywords:
+    - Stackstorm
+    - Pack
+    - Simple
+version: 0.0.1
+python_versions:
+    - "3"
+dependencies:
+    - core
+author: "Tim Jones"
+email: "tdjones74021@yahoo.com"
