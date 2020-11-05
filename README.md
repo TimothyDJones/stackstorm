@@ -42,13 +42,13 @@ To install a pack in Stackstorm (running in Docker), do the following.
     st2 run packs.setup\_virtualenv packs='_packname_' python3=true
     st2 run packs.load packs='_packname_' register=all
     ```
-    Each command should will produce some output, the most important of which is **`status: succeeded`**. The first command creates a new [Python virtual environment](https://docs.python.org/3/tutorial/venv.html) specific to Python 3. The second command registers your pack with Stackstorm.
+    Each command will produce some output, the most important of which is **`status: succeeded`**. The first command creates a new [Python virtual environment](https://docs.python.org/3/tutorial/venv.html) specific to Python 3. The second command registers your pack with Stackstorm.
 4. To confirm that the new pack is now available, run:
     ```bash
     st2 action list --pack='_packname_'
     ```
     Stackstorm will display a tabular view of the actions with their descriptions in your new pack.
-5. You can now run your new pack at the Docker command prompt or via the web GUI. For example, to execute the Action named `hello_world_action` in the `hello_world` pack which takes two string parameters `name` and `message`, we might run the following with the corresponding output:
+5. You can now run your new pack at the Docker command prompt or via the web GUI. For example, to execute the Action named [`hello_world_action`](https://github.com/TimothyDJones/stackstorm/blob/main/hello_world/actions/hello_world_action.py) in the [`hello_world`](https://github.com/TimothyDJones/stackstorm/tree/main/hello_world) pack which takes two string parameters `name` and `message`, we might run the following with the corresponding output:
     ```bash
     st2 run hello_world.hello_world_action name="Tim" message="This is a test."
     
