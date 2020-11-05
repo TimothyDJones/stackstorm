@@ -1,5 +1,5 @@
-# stackstorm
-Repository for tips and learning Stackstorm automation tool
+# Stackstorm
+Repository for tips and learning [Stackstorm](https://stackstorm.com/) automation tool
 
 ## Stackstorm Setup Using Docker
 To start using Stackstorm with Docker.
@@ -22,15 +22,20 @@ To start using Stackstorm with Docker.
     ```bash
     launch_st2.sh
     ```
-5. Open a web browser to `http:\\localhost:8080` and log in with user ID `st2admin` and password `Ch@ngeMe`.
+5. Open a web browser to `http:\\localhost:8080` and log in with user ID `st2admin` and password `Ch@ngeMe`. Likewise, you can run Stackstorm `st2` commands at the Docker command prompt.
+6. To shut down the Docker instance, enter `exit` at the Docker command prompt and then run:
+    ```bash
+    docker-compose down
+    ```
 
-[Reference 1](https://docs.stackstorm.com/install/docker.html)
+[Reference 1](https://docs.stackstorm.com/install/docker.html)  
 [Reference 2](https://github.com/StackStorm/st2-docker/blob/master/README.md)
 
 
-# Install a New Pack with Python Script Action in Stackstorm
+## Install a New Pack with Python Script Action in Stackstorm
 To install a pack in Stackstorm (running in Docker), do the following.
 1. Copy (or clone from repository) the pack into the `packs.dev` directory in `st2-docker` directory.
+    _Note_: If you prefer to use pack code from another location, such as your "project" directory, you can set the **`ST2_PACKS_DEV`** environment variable to the desired directory path to use.
 2. Launch Stackstorm as usual via the `launch_st2.sh` shell script (see above).
 3. At the Stackstorm Docker shell prompt, navigate to the new pack directory and run these commands:
     ```bash
@@ -45,7 +50,7 @@ To install a pack in Stackstorm (running in Docker), do the following.
     Stackstorm will display a tabular view of the actions with their descriptions in your new pack.
 5. You can now run your new pack at the Docker command prompt or via the web GUI. For example, to execute the Action named `hello_world_action` in the `hello_world` pack which takes two string parameters `name` and `message`, we might run the following with the corresponding output:
     ```bash
-    **st2 run hello_world.hello_world_action name="Tim" message="This is a test."**
+    st2 run hello_world.hello_world_action name="Tim" message="This is a test."
     
     id: 5fa45949e1b2790677f9b699
     action.ref: hello_world.hello_world_action
