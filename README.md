@@ -39,13 +39,13 @@ To install a pack in Stackstorm (running in Docker), do the following.
 2. Launch Stackstorm as usual via the `launch_st2.sh` shell script (see above).
 3. At the Stackstorm Docker shell prompt, navigate to the new pack directory and run these commands:
     ```bash
-    st2 run packs.setup\_virtualenv packs='_packname_' python3=true
-    st2 run packs.load packs='_packname_' register=all
+    st2 run packs.setup_virtualenv packs='packname' python3=true
+    st2 run packs.load packs='packname' register=all
     ```
     Each command will produce some output, the most important of which is **`status: succeeded`**. The first command creates a new [Python virtual environment](https://docs.python.org/3/tutorial/venv.html) specific to Python 3. The second command registers your pack with Stackstorm.
 4. To confirm that the new pack is now available, run:
     ```bash
-    st2 action list --pack='_packname_'
+    st2 action list --pack='packname'
     ```
     Stackstorm will display a tabular view of the actions with their descriptions in your new pack.
 5. You can now run your new pack at the Docker command prompt or via the web GUI. For example, to execute the Action named [`hello_world_action`](https://github.com/TimothyDJones/stackstorm/blob/main/hello_world/actions/hello_world_action.py) in the [`hello_world`](https://github.com/TimothyDJones/stackstorm/tree/main/hello_world) pack which takes two string parameters `name` and `message`, we might run the following with the corresponding output:
@@ -71,6 +71,12 @@ To install a pack in Stackstorm (running in Docker), do the following.
     ```
     
 [Reference](https://docs.stackstorm.com/actions.html)
+
+## Add new user account for Stackstorm
+To add new user account to your Stackstorm install, use the standard Linux [`htpasswd`](https://linux.die.net/man/1/htpasswd) utility referencing the Stackstorm `htpasswd` file, which is typically located in `/etc/st2` directory. For example:
+```bash
+sudo htpasswd -b /etc/st2/htpasswd username password
+```
 
 
 
