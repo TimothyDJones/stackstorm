@@ -1,0 +1,16 @@
+ref: workflow_test
+name: workflow_test
+description: "Pack demonstrating workflow that calls action in other pack."
+keywords:
+    - Stackstorm
+    - Pack
+    - Simple
+    - Workflow
+version: 0.0.1
+python_versions:
+    - "3"
+dependencies:
+    - core
+    - hello_world
+author: "Tim Jones"
+email: "tdjones74021@yahoo.com"

@@ -1,0 +1,17 @@
+---
+name: example_workflow
+pack: workflow_test
+description: "Basic workflow which calls action in other pack."
+runner_type: orquesta
+entry_point: workflows/example_workflow.yaml
+enabled: true
+parameters:
+  name:
+    type: string
+    description: "Name of individual to greet via 'Hello World' action."
+    default: Stackstorm
+    required: true
+  message:
+    type: string
+    description: "Special message to send."
+    required: false

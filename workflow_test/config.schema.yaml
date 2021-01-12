@@ -1,0 +1,6 @@
+---
+default_message:
+  type: string
+  description: "Default message for 'Hello World'"
+  required: false
+  default: "Hello from test workflow!"

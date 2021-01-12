@@ -1,0 +1,55 @@
+---
+version: 0.0.1
+description: "Basic workflow which calls action in other pack."
+
+# Inputs
+inputs:
+  - name
+  - message
+
+# Variables used within the workflow/tasks
+vars:
+  - hello_world_result
+
+# Outputs provided by workflow/tasks
+output:
+
+# Workflow tasks to execute
+tasks:
+  # Call action in separate "Hello World" pack.
+  run_hello_world:
+    action: hello_world.hello_world_action
+    input: 
+      - name: <% ctx().name %>
+      - message: <% ctx().message %>
+    next:
+      - when: <% succeeded() %>
+        publish: hello_world_result=<% result().result %>
+        do: run_successful
+      - when: <% failed() %>
+        publish: 
+          - status_message: 
+        do: end_notification
+  
+  # Task executed upon successful execution.
+  run_successful:
+    action: core.noop
+    next:
+      - when: <% bool(ctx(hello_world_result).split()[-1]) %>
+      - do: display_last_string
+
+  # Display the last string of the message, if any
+  display_last_string:
+    action: core.echo
+    input:
+      message: "{{ ctx(hello_world_result).split()[-1] }}"
+    next:
+      publish:
+        - status_message: "Completed successfully!"
+      do: end_notification
+  
+  # Display final notification
+  end_notification:
+    action: core.echo
+    input:
+      message: "{{ ctx(status_message) }}"
