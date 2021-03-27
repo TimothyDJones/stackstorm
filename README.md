@@ -1,6 +1,19 @@
 # Stackstorm
 Repository for tips and learning [Stackstorm](https://stackstorm.com/) automation tool
 
+## Using Docker Toolbox with VirtualBox on AMD CPU on Windows
+When running Stackstorm with Docker on Windows with AMD CPU using the *old* [Docker Toolbox](https://github.com/docker/toolbox/releases/) with VirtualBox (instead of the new Docker Desktop), you may run into error when launching the **Docker Quickstart Terminal** tool the first time after installation:
+```
+Error with pre-create check: "This computer doesn't have VT-X/AMD-v enabled. Enabling it in the BIOS is mandatory"
+```
+This error occurs even though virtualization support *is* enabled in BIOS. To resolve the problem, open Administrator Powershell prompt and run:
+```
+docker-machine.exe create default --virtualbox-no-vtx-check
+```
+This generates the `default` Docker VirtualBox VM, which is used as the "base" for all of the Docker instances. You should now be able to run the Docker Quickstart Terminal or simply run Docker from other command prompt.
+
+[Reference](https://forums.docker.com/t/error-with-pre-create-check-this-computer-doesnt-have-vt-x-amd-v-enabled-enabling-it-in-the-bios-is-mandatory-even-though-its-enabled/79541/3)
+
 ## Stackstorm Setup Using Docker
 To start using Stackstorm with Docker.
 1. Install [Docker](https://www.docker.com/get-started) according to the standard Docker [installation process](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04). You will need the [Docker Compose](https://docs.docker.com/compose/) utility, as well. In Linux, ensure that your user account is a member of the `docker` group.
