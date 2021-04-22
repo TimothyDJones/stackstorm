@@ -35,7 +35,7 @@ To start using Stackstorm with Docker.
     ```bash
     launch_st2.sh
     ```
-5. Open a web browser to `http:\\localhost:8080` and log in with user ID `st2admin` and password `Ch@ngeMe`. Likewise, you can run Stackstorm `st2` commands at the Docker command prompt.
+5. Open a web browser to `http://localhost:8080` and log in with user ID `st2admin` and password `Ch@ngeMe`. Likewise, you can run Stackstorm `st2` commands at the Docker command prompt.
 6. To shut down the Docker instance, enter `exit` at the Docker command prompt and then run:
     ```bash
     docker-compose down
