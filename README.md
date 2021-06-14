@@ -91,5 +91,41 @@ To add new user account to your Stackstorm install, use the standard Linux [`htp
 sudo htpasswd -b /etc/st2/htpasswd username password
 ```
 
+## Additional firewall configuration settings for CentOS 8 installation
+The Stackstorm [installation instructions for CentOS 8](https://docs.stackstorm.com/install/rhel8.html) are very thorough and complete. However, if you are using the [`api_url` configuration parameter in the `[auth]` section](https://docs.stackstorm.com/authentication.html?highlight=api_url) of `/etc/st2/st2.conf`, some additional configuration options may be required beyond those specified under the **[Install WebUI and Setup SSL Termination](https://docs.stackstorm.com/install/rhel8.html#id12)** section.
+
+For limiting access to your _internal_ network only, the following firewall commands should work. They use the `drop` and `internal` zones of `[firewalld](https://firewalld.org/)` firewall package. [1] 
+
+The `drop` zone essentially blocks ("drops") all traffic and you should enable _all_ network interfaces (NICs) for your server on this zone, except the _loopback_ interface (`lo`). To get a list of all interfaces, run [2]:
+```
+$ basename -a /sys/class/net/*
+ens192
+ens224
+lo
+```
+In the example below, the interface names used are `ens192` and `ens224`. 
+
+```
+$ sudo firewall-cmd --permanent --set-default-zone=drop
+$ sudo firewall-cmd --permanent --zone=drop --add-interface=ens224
+$ sudo firewall-cmd --permanent --zone=drop --add-interface=ens192
+```
+
+For the `internal` zone, we allow HTTP and HTTPS and other common services (which are already enabled by default) on the entire 10.X.X.X subnet. If you are using a different internal subnet (see [RFC1918](https://tools.ietf.org/html/rfc1918) for other standard internal network configurations) [3], adjust the corresponding command accordingly.
+
+```
+sudo firewall-cmd --permanent --zone=internal --add-source=10.0.0.0/8
+sudo firewall-cmd --permanent --zone=internal --add-service=http
+sudo firewall-cmd --permanent --zone=internal --add-service=https
+```
+Note that if you have you configured Stackstorm to use _only_ HTTPS/SSL, then you can (and should) **skip** the second command above which enables *HTTP*.
+
+Finally, we reload the firewall configuration since we have used the `permanent` flag for the above commands so that the changes persist when the firewall is restarted, such on server reboot.
+sudo firewall-cmd --reload
+
+[Reference1](https://linuxize.com/post/how-to-configure-and-manage-firewall-on-centos-8/)
+[Reference2](https://superuser.com/a/1173532)
+[Reference3](https://netbeez.net/blog/rfc1918/)
+
 
 
